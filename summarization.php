@@ -66,8 +66,8 @@ class Summarization{
         for($i=0; $i<count($this->array_kalimat); $i++){
             $temp_kata = preg_split( "/[\s,]+/", $this->array_kalimat[$i], -1, PREG_SPLIT_NO_EMPTY );
             for($j = 0; $j < count($temp_kata); $j++){
-                if(! in_array(strtolower($temp_kata[$j]), $this->array_kata )){
-                    $this->array_kata[] = strtolower($temp_kata[$j]);
+                if(! in_array(strtolower($temp_kata[$j]), $this->array_kata )){					
+                    $this->array_kata[] = strtolower(preg_replace('/(^[\"\'\(]|[\"\'\)\:\.,]$)/',"", trim($temp_kata[$j]))); 
                 }
             }
         }
@@ -85,7 +85,7 @@ class Summarization{
         $jumlah = 0;
         $temp_kata = preg_split("/[\s,]+/", $kalimat);
         for($i=0;$i<count($temp_kata); $i++){
-            if(strcasecmp($kata, $temp_kata[$i]) == 0){
+            if(strcasecmp($kata, strtolower(preg_replace('/(^[\"\'\(]|[\"\'\)\:\.,]$)/',"", trim($temp_kata[$i])))) == 0){
                 $jumlah++;
             }
         }
