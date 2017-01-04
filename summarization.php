@@ -113,7 +113,7 @@ class Summarization{
 
     public function hitungTfIdf(){
         for($i = 0; $i < count($this->array_kata); $i++){
-            $this->tf_idf[$i] = log(count($this->array_kata) / $this->tf[$i], 2);
+            $this->tf_idf[$i] = log(count($this->array_kalimat) / $this->tf[$i], 2);
         }
     }
 
