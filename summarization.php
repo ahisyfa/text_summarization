@@ -42,6 +42,8 @@ class Summarization{
     private $hasil_akhir = array();
 
     private $index_kalimat_terambil = array();
+	
+	private $kemunculan_dalam_array_kalimat = array();
 
 
     public function initDocument(){
@@ -105,15 +107,17 @@ class Summarization{
     public function hitungtermFrequencyPerkolom(){
         for($i = 0; $i < count($this->array_kata); $i++){
             $this->tf[$i] = 0;
+			$this->kemunculan_dalam_array_kalimat[$i] = 0;
             for($j = 0; $j < count($this->array_kalimat); $j++){
                 $this->tf[$i] += $this->frequency[$j][$i];
+				$this->kemunculan_dalam_array_kalimat[$i] += $this->frequency[$j][$i] > 0 ? 1 : 0;
             }
         }
     }
 
     public function hitungTfIdf(){
         for($i = 0; $i < count($this->array_kata); $i++){
-            $this->tf_idf[$i] = log(count($this->array_kalimat) / $this->tf[$i], 2);
+            $this->tf_idf[$i] = log(count($this->array_kalimat) / $this->kemunculan_dalam_array_kalimat[$i], 2);
         }
     }
 
@@ -145,9 +149,6 @@ class Summarization{
         }
 
     }
-
-
-
 
 
     public function summary(){
